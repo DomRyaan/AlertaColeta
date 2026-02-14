@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="eco_forest_green">#00B130</color>
+    <color name="eco_vivid_blue">#5D5FEF</color>
+
+    <color name="eco_background_light">#F5F5F5</color>
+    <color name="eco_surface_white">#FFFFFF</color>
+    <color name="eco_input_grey">#F3F4F6</color>
+
+    <color name="eco_text_primary_dark">#1A1A1A</color>
+    <color name="eco_text_secondary_dark">#757575</color>
+    <color name="eco_text_on_primary">#FFFFFF</color>
+
+
+</resources>
