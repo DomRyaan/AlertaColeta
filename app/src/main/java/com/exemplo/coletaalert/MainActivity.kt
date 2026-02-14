@@ -21,8 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     val LOCATION_PERMISSION_REQUEST_CODE = 100
-    lateinit var bottomNavView: BottomNavigationView
-    lateinit var navHostView: FragmentContainerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,19 +28,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        bottomNavView = findViewById(R.id.bottom_nav_view)
-        navHostView = findViewById(R.id.nav_host_fragment)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insents ->
             val systemBars = insents.getInsets(WindowInsetsCompat.Type.systemBars())
 
-            val marginBottomNav = systemBars.bottom + (8 * Resources.getSystem().displayMetrics.density).toInt()
-
-            val params = bottomNavView.layoutParams as ViewGroup.MarginLayoutParams
-
-            params.bottomMargin = marginBottomNav
-
-            navHostView.updatePadding(top = systemBars.top, left = systemBars.left, right = systemBars.right)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 
             WindowInsetsCompat.CONSUMED
         }

@@ -38,8 +38,6 @@ android {
 dependencies {
 
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
