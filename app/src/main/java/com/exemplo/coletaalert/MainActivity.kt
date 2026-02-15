@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,17 +17,20 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentContainerView
+import com.exemplo.coletaalert.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
     val LOCATION_PERMISSION_REQUEST_CODE = 100
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insents ->
@@ -40,6 +44,15 @@ class MainActivity : AppCompatActivity() {
         val localizacao = Localizacao(this)
 
         if (verificarPermissao()) {
+
+            localizacao.obterLocalizacao { resultado ->
+                runOnUiThread {
+                    if (resultado.contains("não encontrada") || resultado.contains("Falha")){
+                        binding.textView.text = "Não foi encontrado"
+                    }
+                    binding.textView.text = resultado
+                }
+            }
 
         } else {
             ActivityCompat.requestPermissions(
