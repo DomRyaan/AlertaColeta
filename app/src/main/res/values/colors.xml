@@ -3,6 +3,8 @@
     <color name="eco_forest_green">#00B130</color>
     <color name="eco_vivid_blue">#5D5FEF</color>
 
+    <color name="error">#FF0000</color>
+
     <color name="eco_background_light">#F5F5F5</color>
     <color name="eco_surface_white">#FFFFFF</color>
     <color name="eco_input_grey">#F3F4F6</color>
