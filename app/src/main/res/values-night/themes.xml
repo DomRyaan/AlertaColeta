@@ -3,11 +3,6 @@
     <style name="Base.Theme.ColetaAlert" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">@color/eco_forest_green</item>
-        <item name="colorOnPrimary">@color/eco_text_on_primary</item>
-        <item name="colorSecondary">@color/eco_vivid_blue</item>
-        <item name="colorOnSecondary">@color/eco_text_on_primary</item>
-
         <item name="android:statusBarColor">@color/eco_forest_green</item>
         <item name="android:windowLightStatusBar">false</item>
 
