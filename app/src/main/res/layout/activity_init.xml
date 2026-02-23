@@ -1,120 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/eco_surface_white"
-   >
+    android:background="@color/eco_background_light">
 
-    <View
-        android:id="@+id/viewTopBackground"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_init"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_views"
         android:layout_width="match_parent"
-        android:layout_height="545dp"
-        android:background="@drawable/bg_top_organic"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_init"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="39dp"
+
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_next"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/guideline_init"
+        app:tabBackground="@drawable/tab_indicator_selector"
+        app:tabIconTint="@null"
+        app:tabIndicatorHeight="0dp"
+        app:tabMaxWidth="10dp"
+        app:tabMinWidth="10dp"
+        app:tabPadding="0dp" />
 
-        <TextView
-            android:layout_width="335dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="Faça a diferença pelo planeta"
-            android:textColor="@color/eco_text_on_primary"
-            android:textSize="35sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingMultiplier="1.2"
-            android:text="Acompanhe a coleta de lixo e crie hábitos mais sustentáveis no dia a dia."
-            android:textColor="#E6FFFFFF"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="360dp"
-        android:layout_height="240dp"
-        android:layout_marginBottom="-35dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingCard"
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="130dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="28dp"
+        android:backgroundTint="@color/eco_vivid_blue"
+        android:text="Próximo"
+        android:textColor="@color/eco_text_on_primary"
+        app:layout_constraintBottom_toBottomOf="@+id/tabs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:srcCompat="@drawable/logo_init" />
+        app:layout_constraintTop_toTopOf="@+id/tabs" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/floatingCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="-60dp"
-        android:outlineAmbientShadowColor="@color/eco_text_primary_dark"
-        android:outlineSpotShadowColor="@color/eco_text_primary_dark"
-        app:cardBackgroundColor="@color/eco_surface_white"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewTopBackground"
-       >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="32dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_rounded_input"
-                android:hint="Nome e Sobrenome"
-                android:inputType="textPersonName"
-                android:minHeight="56dp"
-                android:paddingHorizontal="20dp"
-                android:textColor="@color/eco_text_primary_dark"
-                android:textColorHint="@color/eco_text_secondary_dark"
-                android:textSize="16sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:elevation="6dp"
-                android:stateListAnimator="@null"
-                android:text="Entrar"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                app:backgroundTint="@color/eco_vivid_blue"
-                app:cornerRadius="50dp"
-                app:icon="@drawable/seta"
-                app:iconGravity="textEnd"
-                app:iconPadding="10dp"
-
-                app:iconSize="29dp"
-                app:iconTint="@color/eco_text_on_primary" />
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    =
 
 </androidx.constraintlayout.widget.ConstraintLayout>

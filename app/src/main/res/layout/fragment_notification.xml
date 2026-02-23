@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/eco_background_light">
+
+    <ImageView
+        android:id="@+id/ivIllustrationNotification"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="Ilustração de um smartphone recebendo um lembrete de coleta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/fundo_noti" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-15dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@color/eco_background_light"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Card.TopRounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineCenter">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/tvTitleNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins"
+            android:text="Seja lembrado na hora certa"
+            android:textAlignment="center"
+            android:textColor="#343434"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tvSubtitleNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Receba um aviso simples na noite anterior ou na manhã da coleta. Nada de spam, apenas o lembrete essencial para você não esquecer."
+            android:textAlignment="center"
+            android:textColor="#666666"
+            android:textSize="16sp"
+             />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_enable_notification"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins"
+        android:backgroundTint="@color/eco_vivid_blue"
+        android:paddingVertical="14dp"
+        android:text="Habilitar Notificação"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitleLocation" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

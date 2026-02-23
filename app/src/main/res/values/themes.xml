@@ -20,5 +20,14 @@
         <item name="android:height">0dp</item>
     </style>
 
+    <style name="ShapeAppearance.Card.TopRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">25dp</item>
+        <item name="cornerSizeTopRight">25dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cardElevation">40dp</item>
+    </style>
+
     <style name="Theme.ColetaAlert" parent="Base.Theme.ColetaAlert" />
 </resources>
