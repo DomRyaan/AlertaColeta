@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.exemplo.coletaalert"
+    namespace = "com.exemplo.alertacoleta"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.exemplo.coletaalert"
+        applicationId = "com.exemplo.alertacoleta"
         minSdk = 25
         targetSdk = 36
         versionCode = 1
@@ -33,14 +33,28 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
 
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    // Retrofit ( Para request)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // Conversor Gson (para transformar JSON em objetos)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // Coroutines (já costuma vir, mas garanta que tem)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-core:1.1.1")
+
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
