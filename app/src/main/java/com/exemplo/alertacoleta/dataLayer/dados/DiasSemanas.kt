@@ -9,3 +9,13 @@ enum class DiasSemanas {
     SEX,
     SAB
 }
+
+val DIAS_SEMANAS = listOf(
+    DiasSemanas.DOM,
+    DiasSemanas.SEG,
+    DiasSemanas.TER,
+    DiasSemanas.QUA,
+    DiasSemanas.QUI,
+    DiasSemanas.SEX,
+    DiasSemanas.SAB,
+)

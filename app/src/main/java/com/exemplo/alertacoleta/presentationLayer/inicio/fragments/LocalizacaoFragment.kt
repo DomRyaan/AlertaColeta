@@ -10,7 +10,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.exemplo.alertacoleta.dataLayer.model.LocalizacaoGPS
+import com.exemplo.alertacoleta.dataLayer.model.localizacao.LocalizacaoGPS
 import com.exemplo.alertacoleta.databinding.FragmentLocalizacaoBinding
 import com.exemplo.alertacoleta.presentationLayer.inicio.InitViewModel
 import androidx.fragment.app.activityViewModels

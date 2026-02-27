@@ -1,4 +1,4 @@
-package com.exemplo.alertacoleta.dataLayer.model
+package com.exemplo.alertacoleta.dataLayer.model.formatter
 
 import android.os.Build
 import java.text.SimpleDateFormat
@@ -11,7 +11,7 @@ import java.util.Locale
  * Classe que abstrai a obtenção e formatação de datas,
  * lidando com as diferentes versões de API do Android.
  */
-class Tempo {
+class TempoFormatter {
     internal val LOCAL: Locale = Locale("pt", "BR")
 
     /**

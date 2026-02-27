@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.exemplo.alertacoleta.LogsDebug
+import com.exemplo.alertacoleta.global.LogsDebug
 import kotlinx.coroutines.launch
 import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData
-import com.exemplo.alertacoleta.dataLayer.model.FormularioEndereco
-import com.exemplo.alertacoleta.dataLayer.model.LocalizacaoGPS
+import com.exemplo.alertacoleta.dataLayer.model.localizacao.FormularioEndereco
+import com.exemplo.alertacoleta.dataLayer.model.localizacao.LocalizacaoGPS
 
 
 class InitViewModel : ViewModel() {

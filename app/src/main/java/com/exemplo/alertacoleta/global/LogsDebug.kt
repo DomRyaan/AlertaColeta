@@ -1,4 +1,4 @@
-package com.exemplo.alertacoleta
+package com.exemplo.alertacoleta.global
 
 import android.util.Log
 

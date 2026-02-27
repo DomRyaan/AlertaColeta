@@ -3,11 +3,13 @@ package com.exemplo.alertacoleta.presentationLayer.home.recycleColeta
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.exemplo.alertacoleta.dataLayer.dados.Coleta
+import com.exemplo.alertacoleta.global.LogsDebug
+import com.exemplo.alertacoleta.dataLayer.dados.DiasSemanas
 import com.exemplo.alertacoleta.databinding.ItemScheduleBinding
 
 class ColetaAdpter(
-    private val coletas: List<Coleta>
+    private val diasSemanas: List<DiasSemanas>,
+    private var diasComColeta: List<String>
 ) : RecyclerView.Adapter<ColetaViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -18,6 +20,7 @@ class ColetaAdpter(
 
         val binding = ItemScheduleBinding.inflate(inflater, parent, false)
 
+
         return ColetaViewHolder(binding)
     }
 
@@ -25,12 +28,18 @@ class ColetaAdpter(
         holder: ColetaViewHolder,
         position: Int
     ) {
-        val coletaItem = coletas[position]
+        val diaItem = diasSemanas[position]
 
-        holder.bind((coletaItem))
+        val teraColeta = diasComColeta.contains(diaItem.name)
+        holder.bind(diaItem.name, teraColeta)
     }
 
     override fun getItemCount(): Int {
-        return coletas.size
+        return diasSemanas.size
+    }
+
+    fun atualizarDiasComColeta(novaLista: List<String>) {
+        this.diasComColeta = novaLista
+        notifyDataSetChanged() // Informa ao adapter que os dados mudaram!
     }
 }

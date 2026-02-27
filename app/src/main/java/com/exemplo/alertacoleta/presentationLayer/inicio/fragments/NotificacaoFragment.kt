@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.exemplo.alertacoleta.databinding.FragmentNotificationBinding
-import com.exemplo.alertacoleta.dataLayer.model.NotificationHelper
 
 class NotificacaoFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
@@ -23,9 +22,6 @@ class NotificacaoFragment : Fragment() {
         ActivityResultContracts.RequestPermission()
     ) { isGrated: Boolean ->
         if (isGrated){
-            NotificationHelper.createCanalNotification(requireContext())
-
-            NotificationHelper.with(requireContext()).show()
         }
     }
 
@@ -50,9 +46,7 @@ class NotificacaoFragment : Fragment() {
         binding.btnEnableNotification.setOnClickListener {
 
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                NotificationHelper.createCanalNotification(requireContext())
 
-                NotificationHelper.with(requireContext()).show()
             }else {
                 requestPermissaoLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }

@@ -8,7 +8,7 @@ import com.exemplo.alertacoleta.databinding.ActivityInitBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import androidx.activity.viewModels
 import com.exemplo.alertacoleta.presentationLayer.home.MainActivity
-import com.exemplo.alertacoleta.MyApplication
+import com.exemplo.alertacoleta.global.MyApplication
 import com.exemplo.alertacoleta.dataLayer.model.Repository
 
 class InitAcitvity : AppCompatActivity() {

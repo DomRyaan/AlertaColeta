@@ -1,18 +1,21 @@
-package com.exemplo.alertacoleta.dataLayer.model
+package com.exemplo.alertacoleta.dataLayer.dados
 
 import android.content.Context
-import android.view.View
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.exemplo.alertacoleta.LogsDebug
+import androidx.datastore.preferences.preferencesDataStore
+import com.exemplo.alertacoleta.global.LogsDebug
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+private const val USER_PREFERENCES_NAME = "user_preferences"
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+    name = USER_PREFERENCES_NAME
+)
 
 class AppDataStoreManager(private val context: Context) {
     // ---- FUNÇÕES DE ESCRITA (para salvar os dados) ----
@@ -27,7 +30,8 @@ class AppDataStoreManager(private val context: Context) {
     }
 
     suspend fun salvarDadosColeta(dias: String, horario: String) {
-        if (dias.isNotEmpty() && dias.isNotEmpty()) {
+        LogsDebug.log("Os dados pego: ${dias}, ${horario}")
+        if (dias.isNotEmpty() || horario.isNotEmpty()) {
             LogsDebug.log("Salvando os dados: ${dias}, ${horario}")
             context.dataStore.edit { preferences ->
                 preferences[DIAS_COLETA_KEY] = dias
@@ -48,5 +52,17 @@ class AppDataStoreManager(private val context: Context) {
         val BAIRRO_KEY = stringPreferencesKey("bairro_key")
         val DIAS_COLETA_KEY = stringPreferencesKey("dias_coleta_key")
         val HORARIO_COLETA_KEY = stringPreferencesKey("horario_coleta_key")
+
+
+        @Volatile
+        private var INSTANCE: AppDataStoreManager? = null
+
+        fun getInstance(context: Context): AppDataStoreManager {
+            return INSTANCE ?: synchronized(this) {
+                val instance = AppDataStoreManager(context.applicationContext)
+                INSTANCE = instance
+                instance
+            }
+        }
     }
 }

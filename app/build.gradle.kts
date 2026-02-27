@@ -47,11 +47,18 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     // Conversor Gson (para transformar JSON em objetos)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    // Coroutines (já costuma vir, mas garanta que tem)
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    // Armazenamento
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.datastore:datastore-core:1.1.1")
+
+    // WorkManagaer para gerenciar a notificações
+    implementation("androidx.work:work-runtime-ktx:2.11.1")
+    implementation("androidx.work:work-rxjava2:2.11.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.recyclerview)

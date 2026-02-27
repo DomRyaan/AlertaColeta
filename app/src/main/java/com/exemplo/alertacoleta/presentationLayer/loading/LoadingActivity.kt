@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.exemplo.alertacoleta.LogsDebug
-import com.exemplo.alertacoleta.MyApplication
+import com.exemplo.alertacoleta.global.LogsDebug
+import com.exemplo.alertacoleta.global.MyApplication
 import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.dataLayer.model.Repository
 import com.exemplo.alertacoleta.presentationLayer.home.MainActivity

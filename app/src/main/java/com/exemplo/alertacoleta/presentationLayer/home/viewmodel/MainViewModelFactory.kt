@@ -1,4 +1,4 @@
-package com.exemplo.alertacoleta.presentationLayer.home
+package com.exemplo.alertacoleta.presentationLayer.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

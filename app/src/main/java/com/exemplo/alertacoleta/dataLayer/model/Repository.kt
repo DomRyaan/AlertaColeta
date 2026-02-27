@@ -1,7 +1,10 @@
 package com.exemplo.alertacoleta.dataLayer.model
 
 import androidx.lifecycle.Observer
-import com.exemplo.alertacoleta.LogsDebug
+import androidx.lifecycle.asLiveData
+import com.exemplo.alertacoleta.global.LogsDebug
+import com.exemplo.alertacoleta.dataLayer.dados.AppDataStoreManager
+import com.exemplo.alertacoleta.dataLayer.dados.DiasSemanas
 import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData
 import com.exemplo.alertacoleta.dataLayer.model.api.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
@@ -60,8 +63,6 @@ class Repository(
                 return "Erro no requestColeta: " + response.code()
             }
     }
-
-
     fun onCleared(){
         repositoryScope.cancel()
     }

@@ -1,4 +1,4 @@
-package com.exemplo.alertacoleta.dataLayer.model
+package com.exemplo.alertacoleta.dataLayer.model.localizacao
 
 import android.widget.EditText
 import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData

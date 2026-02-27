@@ -1,32 +1,26 @@
 package com.exemplo.alertacoleta.presentationLayer.home.recycleColeta
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.os.Build
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.exemplo.alertacoleta.LogsDebug
 import com.exemplo.alertacoleta.R
-import com.exemplo.alertacoleta.dataLayer.dados.Coleta
 import com.exemplo.alertacoleta.databinding.ItemScheduleBinding
-import com.exemplo.alertacoleta.dataLayer.model.Tempo
+import com.exemplo.alertacoleta.dataLayer.model.formatter.TempoFormatter
 
-val tempo: Tempo = Tempo()
+val tempoFormatter: TempoFormatter = TempoFormatter()
 
 class ColetaViewHolder(
     private val binding: ItemScheduleBinding
 ) :  ViewHolder(binding.root){
 
-    fun bind(coleta: Coleta) {
-        val condicao = coleta.vaiTer
-
+    fun bind(diasSemanas: String, condicao: Boolean) {
         val colorViews = setColorViews(condicao)
 
-        val dia = coleta.dia.toString()
-        val hoje = tempo.obterDiaDaSemanaFormatado().uppercase()
+        val hoje = tempoFormatter.obterDiaDaSemanaFormatado().uppercase()
 
-        if (dia in hoje) {
+        if (diasSemanas in hoje) {
             binding.cardMain.strokeColor = itemView.context.getColor(R.color.eco_forest_green)
             binding.cardMain.strokeWidth = 3
+        }else{
+            binding.cardMain.strokeWidth= 0
         }
 
         if (condicao) {
@@ -35,8 +29,7 @@ class ColetaViewHolder(
 
         binding.cardMain.setCardBackgroundColor(ColorStateList.valueOf(setBackgroundColor(condicao)))
         binding.textDia.setTextColor(colorViews)
-        val diaFormatado = coleta.dia.toString()
-        binding.textDia.text = diaFormatado
+        binding.textDia.text = diasSemanas
 
         binding.iconView.setColorFilter(colorViews)
         binding.iconView.setImageResource(setIcon(condicao))
@@ -51,10 +44,6 @@ class ColetaViewHolder(
         return if (condicao) R.drawable.check_square_svgrepo_com else R.drawable.error_box_svgrepo_com
     }
 
-
-    private fun setStrokeWidth(condicao: Boolean): Int{
-        return if (condicao) 2 else 0
-    }
 
     private fun setBackgroundColor(condicao: Boolean): Int {
         return if (condicao) itemView.context.getColor(R.color.eco_surface_white) else itemView.context.getColor(R.color.eco_background_light)

@@ -1,4 +1,4 @@
-package com.exemplo.alertacoleta.dataLayer.model
+package com.exemplo.alertacoleta.dataLayer.model.localizacao
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,19 +11,18 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.exemplo.alertacoleta.LogsDebug
+import com.exemplo.alertacoleta.global.LogsDebug
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.Locale
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 /*
     Essa classe tem a responsabilidade de lidar com a localização do dispositivo (GPS).
     Ela é assíncrona, usando callbacks para retornar os resultados.
 */
-
 class LocalizacaoGPS(private val context: Context) {
     val LOCATION_PERMISSION_REQUEST_CODE = 100
     private val fusedLocationClient: FusedLocationProviderClient =
@@ -113,10 +112,11 @@ class LocalizacaoGPS(private val context: Context) {
         val geocoder = Geocoder(context, Locale.getDefault())
 
         return suspendCancellableCoroutine { continuation ->
-            geocoder.getFromLocation(latitude, longitude, 1, object: Geocoder.GeocodeListener{
+            geocoder.getFromLocation(latitude, longitude, 1, object : Geocoder.GeocodeListener {
                 override fun onGeocode(addresses: List<Address?>) {
                     continuation.resume(addresses)
                 }
+
                 override fun onError(errorMessage: String?) {
                     continuation.resumeWithException(Exception("Erro durante o geocoder: $errorMessage"))
                 }
