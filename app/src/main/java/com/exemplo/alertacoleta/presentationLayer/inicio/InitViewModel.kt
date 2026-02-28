@@ -42,10 +42,10 @@ class InitViewModel : ViewModel() {
     Pega os Dados do formulario
      */
     fun processarFormulario(cidade: EditText, bairro: EditText): String{
+        LogsDebug.log("Cidade: ${cidade.text}, Bairro: ${bairro.text}")
+        val form = FormularioEndereco(cidade.text.toString() , bairro.text.toString())
 
-        val form = FormularioEndereco(cidade, bairro)
-
-        if (form.validar()){
+        if (form.nuloOuVazio()){
             return "Preencha os campos corretamente"
         }
 

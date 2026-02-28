@@ -14,6 +14,7 @@ import com.exemplo.alertacoleta.dataLayer.model.localizacao.LocalizacaoGPS
 import com.exemplo.alertacoleta.databinding.FragmentLocalizacaoBinding
 import com.exemplo.alertacoleta.presentationLayer.inicio.InitViewModel
 import androidx.fragment.app.activityViewModels
+import com.exemplo.alertacoleta.global.LogsDebug
 
 
 class LocalizacaoFragment : Fragment() {
@@ -70,13 +71,14 @@ class LocalizacaoFragment : Fragment() {
         }
 
         binding.btnConfirmar.setOnClickListener {
+            LogsDebug.log("Botao confirmar clicado")
             val resultado = locationViewModel.processarFormulario(editCidade, editBairro)
+
+            LogsDebug.log(resultado)
 
             Toast.makeText(requireActivity(), resultado, Toast.LENGTH_LONG)
 
-            if ("sucesso" in resultado.lowercase()){
-                fecharFormulario()
-            }
+            fecharFormulario()
         }
 
         binding.close.setOnClickListener {

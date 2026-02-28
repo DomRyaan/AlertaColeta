@@ -4,18 +4,12 @@ import android.widget.EditText
 import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData
 
 class FormularioEndereco(
-    cidade: EditText,
-    bairro: EditText
+   private val cidade: String,
+   private val bairro: String
 ){
-    val cidade: String
-    val bairro: String
 
-    init {
-        this.cidade = cidade.text.toString()
-        this.bairro = bairro.text.toString()
-    }
-    fun validar(): Boolean {
-        return this.cidade.isNotEmpty() && this.bairro.isNotEmpty()
+    fun nuloOuVazio(): Boolean {
+        return this.cidade.isNullOrBlank() || this.bairro.isNullOrBlank()
     }
 
     fun montandoDados(): LocalizacaoData {

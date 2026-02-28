@@ -57,33 +57,37 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Cidade"
-                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                app:boxStrokeColor="#4CAF50"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_cidade"
-                    android:layout_width="260dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#8B8B8B"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="Bairro"
 
-                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                app:boxStrokeColor="#4CAF50"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_bairro"
-                    android:layout_width="260dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#8B8B8B"
                     />
@@ -95,7 +99,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_gravity="center"
+                app:backgroundTint="#4CAF50"
                 android:text="Confirmar"
+                android:textColor="#FFFFFF"
                 android:elevation="20dp"
                 />
 
@@ -120,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.67" />
+        app:layout_constraintGuide_percent="0.65" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
@@ -195,7 +201,7 @@
         android:text="Ou digite seu endereço manualmente"
         android:textAlignment="center"
         android:textColor="#0288D1"
-        android:textSize="14sp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnEnableLocation" />

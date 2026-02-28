@@ -32,7 +32,6 @@ class Repository(
     }
 
     override fun onChanged(value: LocalizacaoData) {
-        LogsDebug.log(value.toString())
         if (value.isSuccess) {
             val cidadeNaoNula = value.cidade
             val bairroNaoNula = value.bairro
@@ -53,15 +52,26 @@ class Repository(
     }
 
     suspend fun requestColeta(cidade: String, bairro: String): String {
+        return try {
             val response = retrofit.getColeta(cidade, bairro)
 
             if (response.isSuccessful) {
-               val resultado = response.body()
-                dataStoreManager?.salvarDadosColeta(resultado!!.dias, resultado!!.horario)
-                return "Request para a API foi um sucesso"
+                val resultado = response.body()
+                if (!resultado.toString().isNullOrBlank()) {
+                    dataStoreManager.salvarDadosColeta(
+                        resultado?.dias.toString(),
+                        resultado?.horario.toString()
+                    )
+                    "Request para a API foi um sucesso"
+                } else {
+                    "Erro: Respota vazia do servidor"
+                }
             } else {
-                return "Erro no requestColeta: " + response.code()
+                "Erro no requestColeta: " + response.code()
             }
+        } catch (e: Exception) {
+            "Falha na conexão: ${e.message}"
+        }
     }
     fun onCleared(){
         repositoryScope.cancel()

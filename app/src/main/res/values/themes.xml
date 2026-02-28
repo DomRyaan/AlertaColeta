@@ -1,6 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ColetaAlert" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/eco_forest_green</item>
+        <item name="colorPrimaryVariant">?attr/colorPrimary</item>
+        <item name="colorSecondary">?attr/colorPrimary</item>
+        <item name="colorSecondaryVariant">?attr/colorPrimary</item>
 
         <item name="android:windowBackground">@color/eco_background_light</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
