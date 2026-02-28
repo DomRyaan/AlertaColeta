@@ -9,16 +9,14 @@ import com.exemplo.alertacoleta.dataLayer.model.formatter.TempoFormatter
 import kotlinx.coroutines.flow.first
 
 class NotificationWorker(
-    appContext: Context,
-    workerParameters: WorkerParameters
+    private val appContext: Context,
+    private val workerParameters: WorkerParameters
 ) : CoroutineWorker(appContext, workerParameters) {
 
-    private val dataStoreManager = AppDataStoreManager.Companion.getInstance(applicationContext)
+    private val dataStoreManager = AppDataStoreManager.Companion.getInstance(appContext)
 
     override suspend fun doWork(): Result {
         try {
-            LogsDebug.log("Notificação Worker iniciada para verificação diaria")
-
             val diasDeColetaString = dataStoreManager.diasColetaFlow.first()
 
             if (diasDeColetaString.isNullOrBlank()){
@@ -32,7 +30,7 @@ class NotificationWorker(
 
             if (diasDeColeta.contains(hoje)) {
                 LogsDebug.log("Hoje é dia de coleta! Disparando notificação")
-                NotificationHelper.with(applicationContext).show()
+                NotificationHelper.with(appContext).show()
             }
 
             return Result.success()

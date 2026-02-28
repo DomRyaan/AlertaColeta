@@ -25,12 +25,12 @@ class TempoFormatter {
             // Caminho moderno (API 26+)
             val hoje = LocalDate.now()
             val formatador = DateTimeFormatter.ofPattern(padrao, LOCAL)
-            hoje.format(formatador)
+            hoje.format(formatador).uppercase().replace(".", "")
         } else {
             // Caminho antigo (antes da API 26)
             val hoje = Date()
             val formatador = SimpleDateFormat(padrao, LOCAL)
-            formatador.format(hoje)
+            formatador.format(hoje).uppercase().replace(".", "")
         }
     }
 }

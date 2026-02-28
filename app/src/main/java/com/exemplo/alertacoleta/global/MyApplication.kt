@@ -54,12 +54,19 @@ class MyApplication : Application() {
             set(Calendar.SECOND, 0)
         }
 
-        val atrasoInicial = horarioAlvo.timeInMillis - agora.timeInMillis
+        if (horarioAlvo.before(agora)) {
+            horarioAlvo.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+       // val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
+
+        val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
+        println(atrasoInicial)
 
         // Criação da requisição periodica para rodar a cada 24 horas
-        val repeticao = 24
+        val repeticao = 24L
         val workRequest: PeriodicWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            Duration.ofHours(repeticao.toLong())
+            Duration.ofHours(repeticao)
         )
             .setInitialDelay(Duration.ofMillis(atrasoInicial))
             .build()
@@ -68,7 +75,7 @@ class MyApplication : Application() {
 
         WorkManager.Companion.getInstance(applicationContext).enqueueUniquePeriodicWork(
         "lembreteColetaDiaria",
-        ExistingPeriodicWorkPolicy.REPLACE,
+        ExistingPeriodicWorkPolicy.KEEP,
         workRequest
     )
     }

@@ -25,7 +25,6 @@ object NotificationHelper {
     fun createCanalNotification(context: Context) {
         // Só é necessário para Android Oreo (API 26) e superior
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LogsDebug.log("Criando Canal de Notificacao")
             val name = context.getString(R.string.name_chanel)
             val descriptionText = context.getString(R.string.chanel_descrip)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -37,8 +36,6 @@ object NotificationHelper {
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-
-            LogsDebug.log("${notificationManager.notificationChannels}")
         }
     }
 

@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
 import com.exemplo.alertacoleta.databinding.FragmentNotificationBinding
 
 class NotificacaoFragment : Fragment() {
@@ -22,6 +23,7 @@ class NotificacaoFragment : Fragment() {
         ActivityResultContracts.RequestPermission()
     ) { isGrated: Boolean ->
         if (isGrated){
+            NotificationHelper.with(requireContext()).show()
         }
     }
 
@@ -46,7 +48,7 @@ class NotificacaoFragment : Fragment() {
         binding.btnEnableNotification.setOnClickListener {
 
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-
+                NotificationHelper.with(requireContext()).show()
             }else {
                 requestPermissaoLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }

@@ -245,6 +245,7 @@
         android:id="@+id/title_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:fontFamily="@font/poppins"
         android:padding="0dp"
         android:text="Haverá Coleta"
@@ -259,10 +260,12 @@
         app:layout_constraintVertical_bias="0.294" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/informações"
+        android:id="@+id/text_informacoes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title_info"
         app:layout_constraintTop_toBottomOf="@+id/title_info">

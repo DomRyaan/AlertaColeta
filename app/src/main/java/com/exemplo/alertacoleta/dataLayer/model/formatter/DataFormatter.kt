@@ -1,8 +1,12 @@
 package com.exemplo.alertacoleta.dataLayer.model.formatter
 
+import com.exemplo.alertacoleta.global.LogsDebug
+
+/**
+ * Essa classe serve para formatar os dados vindo do armazenamento
+ */
 class DataFormatter {
     companion object {
-
         fun stringToList(diasColeta: String): List<String> {
             return diasColeta.replace("/", ",")
                 .split(",")
@@ -26,6 +30,12 @@ class DataFormatter {
             val apenasNumero = getDigito(texto)
             return if (apenasNumero.length >= 4) apenasNumero.substring(2, 4).toIntOrNull() ?: 0 else 0
         }
-    }
 
+        fun temColetaHoje(
+            dias: List<String>
+        ): Boolean {
+            val hoje = TempoFormatter().obterDiaDaSemanaFormatado()
+            return dias.contains(hoje.uppercase())
+        }
+    }
 }

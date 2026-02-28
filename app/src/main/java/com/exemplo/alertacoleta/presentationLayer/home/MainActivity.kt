@@ -1,6 +1,7 @@
 package com.exemplo.alertacoleta.presentationLayer.home
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,12 +11,16 @@ import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.exemplo.alertacoleta.global.MyApplication
 import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.dataLayer.dados.DIAS_SEMANAS
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
 import com.exemplo.alertacoleta.dataLayer.model.Repository
+import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationWorker
 import com.exemplo.alertacoleta.databinding.ActivityMainBinding
+import com.exemplo.alertacoleta.global.LogsDebug
 import com.exemplo.alertacoleta.presentationLayer.home.recycleColeta.ColetaAdpter
 import com.exemplo.alertacoleta.presentationLayer.home.viewmodel.MainViewModel
 import com.exemplo.alertacoleta.presentationLayer.home.viewmodel.MainViewModelFactory
@@ -53,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.listDiasTerao.observe(this) { diasComColeta ->
             diasComColeta?.let {
                 meuAdapter.atualizarDiasComColeta(it)
+                exibirCardInfo(it)
             }
         }
 
@@ -73,6 +79,19 @@ class MainActivity : AppCompatActivity() {
             if (!horarioSalvo.isNullOrBlank()){
               binding.horarioText.text = "${DataFormatter.getHora(horarioSalvo)}:${DataFormatter.getMin(horarioSalvo)}"
             }
+        }
+    }
+
+    fun exibirCardInfo(listaColeta: List<String>){
+        val haveraColeta = DataFormatter.temColetaHoje(listaColeta)
+
+        LogsDebug.log("Haverá coleta hoje: $haveraColeta")
+
+        if (haveraColeta) {
+            binding.titleInfo.text = "Haverá Coleta"
+            binding.textInformacoes.visibility = View.VISIBLE
+        } else {
+            binding.titleInfo.text = "Não haverá Coleta hoje"
         }
     }
 }
