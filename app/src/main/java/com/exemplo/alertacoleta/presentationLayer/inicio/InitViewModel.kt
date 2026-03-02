@@ -1,5 +1,6 @@
 package com.exemplo.alertacoleta.presentationLayer.inicio
 
+import android.content.Context
 import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +11,11 @@ import kotlinx.coroutines.launch
 import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData
 import com.exemplo.alertacoleta.dataLayer.model.localizacao.FormularioEndereco
 import com.exemplo.alertacoleta.dataLayer.model.localizacao.LocalizacaoGPS
+import com.exemplo.alertacoleta.databinding.ActivityInitBinding
+import com.exemplo.alertacoleta.databinding.ActivityMainBinding
 
 
-class InitViewModel : ViewModel() {
+class InitViewModel() : ViewModel() {
     private val _locationResult = MutableLiveData<LocalizacaoData>()
 
     var locationResult: LiveData<LocalizacaoData> = _locationResult

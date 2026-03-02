@@ -12,7 +12,7 @@ import com.exemplo.alertacoleta.global.MyApplication
 import com.exemplo.alertacoleta.dataLayer.model.Repository
 
 class InitAcitvity : AppCompatActivity() {
-   private lateinit var binding: ActivityInitBinding
+   lateinit var binding: ActivityInitBinding
     private val locationViewModel: InitViewModel by viewModels()
 
     private val repository: Repository by lazy {

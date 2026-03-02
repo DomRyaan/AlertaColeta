@@ -19,12 +19,12 @@
         android:theme="@style/Theme.ColetaAlert"
         tools:targetApi="31">
         <activity
-            android:name=".presentationLayer.inicio.InitAcitvity"
+            android:name=".presentationLayer.loading.LoadingActivity"
             android:exported="false" />
 
         <activity android:name=".presentationLayer.home.MainActivity" />
         <activity
-            android:name=".presentationLayer.loading.LoadingActivity"
+            android:name=".presentationLayer.inicio.InitAcitvity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

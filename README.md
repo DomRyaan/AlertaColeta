@@ -20,3 +20,21 @@ Para a experiência completa e funcional, o aplicativo solicita:
 Internet: Para consultar os dados da API em tempo real.
 Notificação: Essencial para o envio dos lembretes de coleta.
 Localização: Utilizada para identificar a rota de coleta correspondente ao endereço do usuário.
+
+📸 Screenshots do Aplicativo
+<table>
+<tr>
+<td align="center"><b>Inicialização</b></td>
+<td align="center"><b>Localização</b></td>
+<td align="center"><b>Dashboard</b></td>
+<td align="center"><b>Detalhes</b></td>
+<td align="center"><b>Notificação</b></td>
+</tr>
+<tr>
+<td><img src="demoimg/img_init_coleta.jpg" width="200" alt="Tela Inicial"></td>
+<td><img src="demoimg/img_localizacao_coleta.jpg" width="200" alt="Tela de Localização"></td>
+<td><img src="demoimg/img_main_coleta.jpg" width="200" alt="Tela Principal"></td>
+<td><img src="demoimg/img_main_coleta2.jpg" width="200" alt="Tela Detalhes"></td>
+<td><img src="demoimg/img_noti_coleta.jpg" width="200" alt="Notificação"></td>
+</tr>
+</table>
