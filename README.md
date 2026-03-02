@@ -38,3 +38,11 @@ Localização: Utilizada para identificar a rota de coleta correspondente ao end
 <td><img src="demoimg/img_noti_coleta.jpg" width="200" alt="Notificação"></td>
 </tr>
 </table>
+
+## 📥 Download
+
+Obtenha a versão mais recente do **ColetaAlert** na nossa página de Releases:
+
+[![Baixar APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/DomRyaan/AlertaColeta/releases/tag/Android)
+
+> **Dica:** Na página de download, baixe o arquivo com a extensão `.apk` para instalar diretamente no seu celular.
