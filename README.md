@@ -5,6 +5,7 @@ O ColetaAlert é um aplicativo nativo Android desenvolvido para solucionar um pr
 Sincronização Automática: O app identifica e coleta os horários de coleta domiciliar diretamente da base de dados da concessionária.
 Notificações Inteligentes: Alertas agendados para garantir que você nunca perca o horário do caminhão de lixo.
 Foco Regional: Atualmente otimizado para as regiões atendidas pela Marquise Ambiental.
+
 ## 🛠 Tecnologias Utilizadas
 Este projeto segue as recomendações modernas do Google para o ecossistema Android:
 
@@ -14,6 +15,7 @@ Este projeto segue as recomendações modernas do Google para o ecossistema Andr
 - **WorkManager**: Utilizado para o agendamento de tarefas em segundo plano, garantindo que a notificação seja enviada mesmo se o app estiver fechado.
 - **Jetpack DataStore**: Substituindo o SharedPreferences para armazenamento persistente de dados de forma segura e reativa.
 - **View & Data Binding**: Utilizados para uma comunicação eficiente entre a lógica do código e os layouts em XML, garantindo maior performance e organização.
+
 
 ## 💼 Permissões Necessárias
 Para a experiência completa e funcional, o aplicativo solicita:
