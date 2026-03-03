@@ -18,6 +18,7 @@ import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.dataLayer.dados.DIAS_SEMANAS
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
 import com.exemplo.alertacoleta.dataLayer.model.Repository
+import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
 import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationWorker
 import com.exemplo.alertacoleta.databinding.ActivityMainBinding
 import com.exemplo.alertacoleta.global.LogsDebug

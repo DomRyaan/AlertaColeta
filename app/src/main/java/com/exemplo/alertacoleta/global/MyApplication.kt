@@ -1,16 +1,15 @@
 package com.exemplo.alertacoleta.global
 
 import android.app.Application
+import java.util.concurrent.TimeUnit
 import androidx.lifecycle.asLiveData
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
-import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.exemplo.alertacoleta.dataLayer.dados.AppDataStoreManager
 import com.exemplo.alertacoleta.dataLayer.model.Repository
 import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
 import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationWorker
-import java.time.Duration
 import java.util.Calendar
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
 
@@ -61,17 +60,19 @@ class MyApplication : Application() {
        // val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
 
         val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
-        println(atrasoInicial)
+        LogsDebug.log("Atraso Inicial: $atrasoInicial")
 
         // Criação da requisição periodica para rodar a cada 24 horas
         val repeticao = 24L
-        val workRequest: PeriodicWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            Duration.ofHours(repeticao)
+
+        val workRequest = PeriodicWorkRequest.Builder(
+            NotificationWorker::class.java,
+            repeticao,
+            TimeUnit.HOURS
         )
-            .setInitialDelay(Duration.ofMillis(atrasoInicial))
+            .setInitialDelay(atrasoInicial, TimeUnit.MILLISECONDS)
             .build()
 
-        LogsDebug.log(workRequest.id.toString())
 
         WorkManager.Companion.getInstance(applicationContext).enqueueUniquePeriodicWork(
         "lembreteColetaDiaria",
@@ -79,5 +80,4 @@ class MyApplication : Application() {
         workRequest
     )
     }
-
 }
