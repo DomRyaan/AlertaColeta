@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // enableEdgeToEdge()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
@@ -77,16 +76,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.horario.observe(this) { horarioSalvo ->
-            if (!horarioSalvo.isNullOrBlank()){
-              binding.horarioText.text = "${DataFormatter.getHora(horarioSalvo)}:${DataFormatter.getMin(horarioSalvo)}"
-            }
+            binding.horarioText.text = if (!horarioSalvo.isNullOrBlank()) "${DataFormatter.getHora(horarioSalvo)}:${DataFormatter.getMin(horarioSalvo)}"
+                                        else ""
         }
     }
 
     fun exibirCardInfo(listaColeta: List<String>){
         val haveraColeta = DataFormatter.temColetaHoje(listaColeta)
-
-        LogsDebug.log("Haverá coleta hoje: $haveraColeta")
 
         if (haveraColeta) {
             binding.titleInfo.text = "Haverá Coleta"

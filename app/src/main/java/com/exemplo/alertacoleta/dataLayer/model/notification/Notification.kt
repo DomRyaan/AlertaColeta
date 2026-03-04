@@ -38,22 +38,21 @@ object NotificationHelper {
             notificationManager.createNotificationChannel(channel)
         }
     }
-
-        fun with(context: Context): NotificationBuilder {
-            return NotificationBuilder(context)
-        }
-
 }
 
 
 /**
  * Classe que gerencia a construção e exibição da notificação.
  */
-class NotificationBuilder(private val context: Context){
+class NotificationBuilder(
+    private val context: Context,
+    private val titulo: String,
+    private val conteudo: String
+    ){
     private val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-        .setContentTitle("Coleta de Lixo")
+        .setContentTitle(this.titulo)
         .setSmallIcon(R.drawable.trash_can_illustration_with_recycle_mark_svgrepo_com)
-        .setContentText("Hoje tem coleta!! Certifique-se de colocar o lixo para fora")
+        .setContentText(this.conteudo)
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setAutoCancel(true)
         .build()
@@ -62,6 +61,15 @@ class NotificationBuilder(private val context: Context){
     fun show(id: Int = NOTIFICATION_ID){
         with(NotificationManagerCompat.from(context)) {
             notify(id, builder)
+        }
+    }
+
+    companion object {
+        fun makeInfoNoti(context: Context,
+                         titulo: String,
+                         conteudo: String
+        ): NotificationBuilder {
+            return NotificationBuilder(context, titulo, conteudo)
         }
     }
 

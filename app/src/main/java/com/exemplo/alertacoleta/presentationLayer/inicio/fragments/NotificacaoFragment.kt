@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationBuilder
 import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
 import com.exemplo.alertacoleta.databinding.FragmentNotificationBinding
 import com.exemplo.alertacoleta.presentationLayer.inicio.FragmentSlideAdapters
@@ -25,7 +26,7 @@ class NotificacaoFragment : Fragment() {
         ActivityResultContracts.RequestPermission()
     ) { isGrated: Boolean ->
         if (isGrated){
-            NotificationHelper.with(requireContext()).show()
+            NotificationBuilder.makeInfoNoti(requireContext(), "Teste", "Testando as notificações. Ignore essa notificação").show()
         }
     }
 

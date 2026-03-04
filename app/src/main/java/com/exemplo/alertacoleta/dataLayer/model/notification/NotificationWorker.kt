@@ -38,7 +38,7 @@ class NotificationWorker(
 
             if (diasDeColeta.contains(hoje)) {
                 LogsDebug.log("Hoje é dia de coleta! Disparando notificação")
-                NotificationHelper.with(appContext).show()
+                NotificationBuilder.makeInfoNoti(appContext, "Coleta de Lixo", "Haverá coleta hoje! Lembre-se de por o lixo para fora").show()
             }
 
             return Result.success()
