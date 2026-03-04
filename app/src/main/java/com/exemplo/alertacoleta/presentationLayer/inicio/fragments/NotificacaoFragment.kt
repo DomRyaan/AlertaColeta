@@ -51,6 +51,7 @@ class NotificacaoFragment : Fragment() {
         binding.btnEnableNotification.setOnClickListener {
 
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                NotificationBuilder.makeInfoNoti(requireContext(), "Teste", "Testando as notificações. Ignore essa notificação").show()
             }else {
                 requestPermissaoLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
