@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        viewModel.locationResult.observe(this, repository)
+
         val meuAdapter = ColetaAdpter(DIAS_SEMANAS, emptyList())
 
         recyclerView = binding.calendarioColeta

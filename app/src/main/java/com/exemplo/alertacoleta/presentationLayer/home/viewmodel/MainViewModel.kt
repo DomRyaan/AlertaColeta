@@ -2,9 +2,11 @@ package com.exemplo.alertacoleta.presentationLayer.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
+import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData
 import com.exemplo.alertacoleta.dataLayer.model.Repository
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
 
@@ -37,6 +39,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             atualizarLocalizacao()
         }
     }
+
+    private val _locationResult = MutableLiveData<LocalizacaoData>()
+
+    var locationResult: LiveData<LocalizacaoData> = _locationResult
 
     var listDiasTerao: LiveData<List<String>> = coletaDias.map { diasString ->
         if (diasString.isNullOrBlank()) emptyList() else DataFormatter.stringToList(diasString)

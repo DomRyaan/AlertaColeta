@@ -1,5 +1,7 @@
 package com.exemplo.alertacoleta.dataLayer.model
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import com.exemplo.alertacoleta.global.LogsDebug
@@ -18,7 +20,6 @@ class Repository(
     internal var dataStoreManager: AppDataStoreManager
 ) : Observer<LocalizacaoData> {
     private val retrofit = RetrofitClient.apiService
-
 
     // Escopo de aplicação que viverá enquanto o app estiver rodando
     val repositoryScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
