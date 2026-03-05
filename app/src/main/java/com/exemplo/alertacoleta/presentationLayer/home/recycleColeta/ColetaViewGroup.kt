@@ -37,13 +37,11 @@ class ColetaViewHolder(
 
     private fun setColorViews(condicao: Boolean): Int {
         return if (condicao) itemView.context.getColor(R.color.eco_forest_green)  else  itemView.context.getColor(R.color.eco_text_secondary_dark)
-
     }
 
     private fun setIcon(condicao: Boolean): Int{
         return if (condicao) R.drawable.check_square_svgrepo_com else R.drawable.error_box_svgrepo_com
     }
-
 
     private fun setBackgroundColor(condicao: Boolean): Int {
         return if (condicao) itemView.context.getColor(R.color.eco_surface_white) else itemView.context.getColor(R.color.eco_background_light)
