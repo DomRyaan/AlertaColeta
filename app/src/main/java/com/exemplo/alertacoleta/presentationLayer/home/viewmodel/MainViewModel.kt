@@ -1,5 +1,6 @@
 package com.exemplo.alertacoleta.presentationLayer.home.viewmodel
 
+import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +17,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     var coletaDias: LiveData<String?> = repository.dataStoreManager.diasColetaFlow.asLiveData()
     var horario: LiveData<String?> = repository.dataStoreManager.horarioColetaFlow.asLiveData()
+
+    private val _locationResult = MutableLiveData<LocalizacaoData>()
+    var locationResult: LiveData<LocalizacaoData> = _locationResult
+
 
     var localizacao: LiveData<String> = MediatorLiveData<String>().apply {
 
@@ -40,11 +45,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    private val _locationResult = MutableLiveData<LocalizacaoData>()
-
-    var locationResult: LiveData<LocalizacaoData> = _locationResult
-
     var listDiasTerao: LiveData<List<String>> = coletaDias.map { diasString ->
         if (diasString.isNullOrBlank()) emptyList() else DataFormatter.stringToList(diasString)
+    }
+
+    /*
+    Pega os Dados do formulario
+     */
+    fun processarFormulario(cidade: EditText, bairro: EditText): String {
+        return repository.processarFormulario(cidade, bairro)
     }
 }
