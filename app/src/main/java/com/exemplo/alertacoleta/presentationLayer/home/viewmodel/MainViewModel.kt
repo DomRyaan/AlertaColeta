@@ -10,6 +10,7 @@ import androidx.lifecycle.map
 import com.exemplo.alertacoleta.dataLayer.dados.LocalizacaoData
 import com.exemplo.alertacoleta.dataLayer.model.Repository
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
+import com.exemplo.alertacoleta.dataLayer.model.ControllerLocation
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
     var cidade: LiveData<String?> = repository.dataStoreManager.cidadeFlow.asLiveData()
@@ -53,6 +54,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     Pega os Dados do formulario
      */
     fun processarFormulario(cidade: EditText, bairro: EditText): String {
-        return repository.processarFormulario(cidade, bairro)
+        try {
+            _locationResult.value = ControllerLocation.processarFormulario(cidade, bairro)
+            return "Salvo com Sucesso"
+        } catch (e: IllegalArgumentException) {
+            return "Preencha os campos corretamente"
+        }
     }
 }
