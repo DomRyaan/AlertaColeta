@@ -28,7 +28,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         fun atualizarLocalizacao() {
             val cidadeAtual = cidade.value
             val bairroAtual = bairro.value
-            val diaAtual = coletaDias.value
 
             if (!cidadeAtual.isNullOrBlank() && !bairroAtual.isNullOrBlank()) {
                 value = "${bairroAtual}, ${cidadeAtual}"
