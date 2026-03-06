@@ -107,57 +107,6 @@ class Repository(
         }
     }
 
-    /**
-     * Inicia a busca pela localização
-     */
-    fun fetchLocationRepository(localizacaoGPSManager: LocalizacaoGPS) {
-        repositoryScope.launch {
-            try {
-                val resultado: String? = localizacaoGPSManager.obterLocalizacao()
-
-                if (resultado.isNullOrBlank() || resultado.contains("não conseguiu encontrar") || resultado.contains(
-                        "Falha"
-                    ) {
-                        _locationResult.value = LocalizacaoData(
-                            isSuccess = false,
-                            null,
-                            null,
-                            error = resultado ?: "Erro desconhecido"
-                        )
-                        throw Exception(resultado)
-                    } else {
-                        val areaLocal = resultado.split(",").map { it.trim() }
-                        LogsDebug.log("ENDEREÇO PEGO: ${areaLocal}")
-                        _locationResult.postValue(
-                            LocalizacaoData (
-                                isSuccess = true,
-                                cidade = areaLocal.getOrNull(0),
-                                bairro = areaLocal.getOrNull(1)
-                            )
-                        )
-
-                    "Request para a API foi um sucesso"
-                }
-            } catch (e: Exception) {
-                LogsDebug.log("Erro: ${e.message}")
-            }
-        }
-    }
-
-    /*
-   Pega os Dados do formulario
-    */
-    fun processarFormulario(cidade: EditText, bairro: EditText): String{
-        val form = FormularioEndereco(cidade, bairro)
-
-        if (form.nuloOuVazio()){
-            return "Preencha os campos corretamente"
-        }
-
-        _locationResult.value = form.montandoDados()
-        return "Salvo com Sucesso!"
-    }
-
     fun onCleared(){
         repositoryScope.cancel()
     }
