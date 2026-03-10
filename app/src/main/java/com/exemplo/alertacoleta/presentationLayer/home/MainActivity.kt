@@ -1,8 +1,13 @@
 package com.exemplo.alertacoleta.presentationLayer.home
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,20 +16,16 @@ import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.exemplo.alertacoleta.global.MyApplication
 import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.dataLayer.dados.DIAS_SEMANAS
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
 import com.exemplo.alertacoleta.dataLayer.model.Repository
-import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
-import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationWorker
 import com.exemplo.alertacoleta.databinding.ActivityMainBinding
-import com.exemplo.alertacoleta.global.LogsDebug
 import com.exemplo.alertacoleta.presentationLayer.home.recycleColeta.ColetaAdpter
 import com.exemplo.alertacoleta.presentationLayer.home.viewmodel.MainViewModel
 import com.exemplo.alertacoleta.presentationLayer.home.viewmodel.MainViewModelFactory
+import com.exemplo.alertacoleta.presentationLayer.loading.LoadingActivity
 
 class MainActivity : AppCompatActivity() {
     private val repository: Repository by lazy {
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
+
 
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(repository)
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestIgnoreBatteryOptimization(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
@@ -81,6 +84,28 @@ class MainActivity : AppCompatActivity() {
             binding.horarioText.text = if (!horarioSalvo.isNullOrBlank()) "${DataFormatter.getHora(horarioSalvo)}:${DataFormatter.getMin(horarioSalvo)}"
                                         else ""
         }
+
+        binding.iconAddLocalizacao.setOnClickListener {
+            binding.formularioMain.root.visibility = View.VISIBLE
+        }
+
+        binding.formularioMain.close.setOnClickListener {
+            binding.formularioMain.root.visibility = View.GONE
+        }
+
+        binding.formularioMain.btnConfirmar.setOnClickListener {
+            val resultado = viewModel.processarFormulario(binding.formularioMain.editCidade, binding.formularioMain.editBairro)
+
+            Toast.makeText(this, resultado, Toast.LENGTH_LONG).show()
+
+            if ("sucesso" in resultado.lowercase()) {
+                fecharFormulario()
+            }
+        }
+
+        viewModel.localizacao.observe(this) { textoFormatado ->
+            binding.localizacaoView.text = textoFormatado
+        }
     }
 
     fun exibirCardInfo(listaColeta: List<String>){
@@ -91,6 +116,23 @@ class MainActivity : AppCompatActivity() {
             binding.textInformacoes.visibility = View.VISIBLE
         } else {
             binding.titleInfo.text = "Não haverá Coleta hoje"
+        }
+    }
+
+    fun fecharFormulario(){
+        binding.formularioMain.root.visibility = View.GONE
+    }
+
+    // Check and request battery optimization exemption
+    fun requestIgnoreBatteryOptimization(context: Context) {
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        val packageName = context.packageName
+
+        if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
+            val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                data = Uri.parse("package:$packageName")
+            }
+            context.startActivity(intent)
         }
     }
 }

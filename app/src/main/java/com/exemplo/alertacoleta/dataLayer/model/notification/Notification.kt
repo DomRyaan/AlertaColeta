@@ -27,7 +27,7 @@ object NotificationHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.name_chanel)
             val descriptionText = context.getString(R.string.chanel_descrip)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
 
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
@@ -53,8 +53,9 @@ class NotificationBuilder(
         .setContentTitle(this.titulo)
         .setSmallIcon(R.drawable.trash_can_illustration_with_recycle_mark_svgrepo_com)
         .setContentText(this.conteudo)
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setAutoCancel(true)
+        .setCategory(NotificationCompat.CATEGORY_ALARM)
         .build()
 
     @SuppressLint("MissingPermission")

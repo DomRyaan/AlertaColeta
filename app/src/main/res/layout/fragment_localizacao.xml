@@ -12,103 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_formulario"
-        android:layout_width="300dp"
-        android:layout_height="310dp"
-
-        app:cardBackgroundColor="#FDFDFD"
-        app:cardElevation="30dp"
-        app:cardCornerRadius="20dp"
-
-        tools:visibility="visible"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/close"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_gravity="end"
-                android:backgroundTint="@android:color/transparent"
-                app:elevation="30dp"
-                app:tint="#FF0000"
-                android:src="@drawable/baseline_close_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Endereço"
-                android:textSize="25sp"
-                android:fontFamily="@font/poppins_light"
-                android:textColor="#000000"
-                />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Cidade"
-                android:layout_gravity="center_horizontal"
-                app:boxStrokeColor="#4CAF50"
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_cidade"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="#8B8B8B"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Bairro"
-
-                android:layout_gravity="center_horizontal"
-                app:boxStrokeColor="#4CAF50"
-                >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_bairro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="#8B8B8B"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/btn_confirmar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:layout_gravity="center"
-                app:backgroundTint="#4CAF50"
-                android:text="Confirmar"
-                android:textColor="#FFFFFF"
-                android:elevation="20dp"
-                />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
     <ImageView
         android:id="@+id/ivIllustrationLocation"
         android:layout_width="0dp"
@@ -120,6 +23,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/fundo_map" />
+
+    <include
+        android:id="@+id/formulario_localizacao"
+        layout="@layout/layout_formulario"
+        tools:visibility="visible"
+        android:visibility="gone"
+    />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"

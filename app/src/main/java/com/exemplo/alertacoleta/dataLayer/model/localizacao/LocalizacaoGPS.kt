@@ -54,7 +54,7 @@ class LocalizacaoGPS(private val context: Context) {
             }
         }
         if (location == null) {
-            return "O GPS não conseguiu achar sua localização"
+            return "O GPS não conseguiu encontrar sua localização"
         }
 
         val endereco =  pegarEndereco(location.latitude, location.longitude)

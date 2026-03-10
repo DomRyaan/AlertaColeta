@@ -24,34 +24,33 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
 
     var localizacao: LiveData<String> = MediatorLiveData<String>().apply {
-
-        fun atualizarLocalizacao() {
+        val atualizar = {
             val cidadeAtual = cidade.value
             val bairroAtual = bairro.value
 
-            if (!cidadeAtual.isNullOrBlank() && !bairroAtual.isNullOrBlank()) {
-                value = "${bairroAtual}, ${cidadeAtual}"
+            value = if (!cidadeAtual.isNullOrBlank() && !bairroAtual.isNullOrBlank()) {
+                "${bairroAtual}, ${cidadeAtual}"
             } else {
-                value = "Localização não definida"
+                "Localização não definida"
             }
         }
 
         addSource(cidade) {
-            atualizarLocalizacao()
+            atualizar()
         }
 
         addSource(bairro) {
-            atualizarLocalizacao()
+            atualizar()
         }
     }
 
     var listDiasTerao: LiveData<List<String>> = coletaDias.map { diasString ->
         if (diasString.isNullOrBlank()) emptyList() else DataFormatter.stringToList(diasString)
-    }
+        }
 
     /*
-    Pega os Dados do formulario
-     */
+        Pega os Dados do formulario
+    */
     fun processarFormulario(cidade: EditText, bairro: EditText): String {
         try {
             _locationResult.value = ControllerLocation.processarFormulario(cidade, bairro)

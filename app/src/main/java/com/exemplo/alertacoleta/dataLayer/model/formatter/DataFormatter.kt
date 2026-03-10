@@ -10,7 +10,7 @@ class DataFormatter {
         fun stringToList(diasColeta: String): List<String> {
             return diasColeta.replace("/", ",")
                 .split(",")
-                .map { it.trim() }
+                .map { it.trim().uppercase() }
                 .filter { it.isNotEmpty() }
         }
 

@@ -3,22 +3,29 @@ package com.exemplo.alertacoleta.presentationLayer.inicio
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.databinding.ActivityInitBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import androidx.activity.viewModels
 import com.exemplo.alertacoleta.presentationLayer.home.MainActivity
 import com.exemplo.alertacoleta.global.MyApplication
 import com.exemplo.alertacoleta.dataLayer.model.Repository
+import com.exemplo.alertacoleta.presentationLayer.inicio.viewModelInit.InitViewModel
+import com.exemplo.alertacoleta.presentationLayer.inicio.viewModelInit.InitViewModelFactory
+import kotlin.getValue
 
 class InitAcitvity : AppCompatActivity() {
    lateinit var binding: ActivityInitBinding
-    private val locationViewModel: InitViewModel by viewModels()
 
     private val repository: Repository by lazy {
         (application as MyApplication).repository
     }
 
+    private val viewModel: InitViewModel by viewModels {
+        InitViewModelFactory(repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +35,7 @@ class InitAcitvity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        locationViewModel.locationResult.observe(this, repository)
+        viewModel.locationResult.observe(this, repository)
 
         val viewPager = binding.fragmentViews
         val tabLayout = binding.tabs

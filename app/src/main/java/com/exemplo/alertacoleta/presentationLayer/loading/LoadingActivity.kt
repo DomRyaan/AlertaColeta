@@ -42,7 +42,7 @@ class LoadingActivity : AppCompatActivity() {
         super.onStart()
 
         lifecycleScope.launch {
-            delay(900)
+            delay(1000)
             if (cidade.isNullOrEmpty() || bairro.isNullOrEmpty()) {
                 var intent = Intent(this@LoadingActivity, InitAcitvity::class.java)
                 startActivity(intent)

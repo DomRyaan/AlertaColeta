@@ -12,7 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.exemplo.alertacoleta.dataLayer.model.localizacao.LocalizacaoGPS
 import com.exemplo.alertacoleta.databinding.FragmentLocalizacaoBinding
-import com.exemplo.alertacoleta.presentationLayer.inicio.InitViewModel
+import com.exemplo.alertacoleta.presentationLayer.inicio.viewModelInit.InitViewModel
 import androidx.fragment.app.activityViewModels
 import com.exemplo.alertacoleta.global.LogsDebug
 
@@ -53,9 +53,9 @@ class LocalizacaoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        editCidade = binding.editCidade
-        editBairro = binding.editBairro
-        close = binding.close
+        editCidade = binding.formularioLocalizacao.editCidade
+        editBairro = binding.formularioLocalizacao.editBairro
+        close = binding.formularioLocalizacao.close
 
         binding.btnEnableLocation.setOnClickListener {
             if (localizacaoGPS.verificarPermissao()) {
@@ -67,10 +67,10 @@ class LocalizacaoFragment : Fragment() {
         }
 
         binding.localManual.setOnClickListener {
-            binding.cardFormulario.visibility = View.VISIBLE
+            binding.formularioLocalizacao.root.visibility= View.VISIBLE
         }
 
-        binding.btnConfirmar.setOnClickListener {
+        binding.formularioLocalizacao.btnConfirmar.setOnClickListener {
             LogsDebug.log("Botao confirmar clicado")
             val resultado = locationViewModel.processarFormulario(editCidade, editBairro)
 
@@ -81,7 +81,7 @@ class LocalizacaoFragment : Fragment() {
             fecharFormulario()
         }
 
-        binding.close.setOnClickListener {
+        binding.formularioLocalizacao.close.setOnClickListener {
             fecharFormulario()
         }
     }
@@ -92,6 +92,6 @@ class LocalizacaoFragment : Fragment() {
     }
 
     fun fecharFormulario(){
-        binding.cardFormulario.visibility = View.GONE
+        binding.formularioLocalizacao.root.visibility = View.GONE
     }
 }

@@ -12,6 +12,8 @@ import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
 import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationWorker
 import java.util.Calendar
 import com.exemplo.alertacoleta.dataLayer.model.formatter.DataFormatter
+import androidx.work.Constraints
+import androidx.work.NetworkType
 
 class MyApplication : Application() {
     private val dataStoreManager by lazy {
@@ -34,7 +36,6 @@ class MyApplication : Application() {
             if (!horarioSalvo.isNullOrBlank()) {
                 agendarNotificacaoDiaria(horarioSalvo)
             }
-
         }
     }
 
@@ -47,37 +48,51 @@ class MyApplication : Application() {
 
         val agora = Calendar.getInstance()
 
-        val horarioAlvo = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, hora)
-            set(Calendar.MINUTE, minuto)
-            set(Calendar.SECOND, 0)
-        }
+        val horarioAlvo = makeCalendarInstance(hora, minuto)
 
         if (horarioAlvo.before(agora)) {
-            horarioAlvo.add(Calendar.DAY_OF_MONTH, 1)
+            horarioAlvo.add(Calendar.DAY_OF_WEEK, 1)
         }
 
-       // val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
+        val constaintBuilder = setConstraintBuilderWork()
+        val constraints = constaintBuilder.build()
 
-        val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
-        LogsDebug.log("Atraso Inicial: $atrasoInicial")
 
-        // Criação da requisição periodica para rodar a cada 24 horas
-        val repeticao = 24L
+        val atrasoInicial: Long = (horarioAlvo.timeInMillis - 10000L) - agora.timeInMillis
 
-        val workRequest = PeriodicWorkRequest.Builder(
-            NotificationWorker::class.java,
-            repeticao,
-            TimeUnit.HOURS
-        )
-            .setInitialDelay(atrasoInicial, TimeUnit.MILLISECONDS)
-            .build()
-
+        val workRequest = setPeriodicWorkRequest(atrasoInicial, constraints)
 
         WorkManager.Companion.getInstance(applicationContext).enqueueUniquePeriodicWork(
         "lembreteColetaDiaria",
         ExistingPeriodicWorkPolicy.KEEP,
         workRequest
     )
+    }
+
+    fun setConstraintBuilderWork(): Constraints.Builder{
+        return Constraints.Builder()
+            .setRequiresBatteryNotLow(false)
+            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+            .setRequiresCharging(false)
+            .setRequiresDeviceIdle(false)
+    }
+
+    fun makeCalendarInstance(hora: Int, minuto: Int): Calendar {
+        return Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, hora)
+            set(Calendar.MINUTE, (minuto - 30))
+            set(Calendar.SECOND, 0)
+        }
+    }
+
+    fun setPeriodicWorkRequest(atrasoInicial: Long, constraints: Constraints): PeriodicWorkRequest {
+        return PeriodicWorkRequest.Builder(
+            NotificationWorker::class.java,
+            20,
+            TimeUnit.HOURS
+            )
+            .setInitialDelay(atrasoInicial, TimeUnit.MILLISECONDS)
+            .setConstraints(constraints)
+            .build()
     }
 }

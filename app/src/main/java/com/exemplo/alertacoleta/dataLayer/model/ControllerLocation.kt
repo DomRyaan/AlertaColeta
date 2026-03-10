@@ -19,26 +19,22 @@ class ControllerLocation {
                 val resultado: String? = localizacaoGPSManager.obterLocalizacao()
 
                 if (validarResultado(resultado)) {
-                    val localizacaoData = LocalizacaoData(
+                    LocalizacaoData (
                         isSuccess = false,
                         null,
                         null,
                         error = resultado ?: "Erro desconhecido"
-                    )
-                    localizacaoData
-
+                    );
                 } else {
                     val areaLocal = resultado!!.split(",").map { it.trim() }
-                    val localizacaoSucess = LocalizacaoData(
+                    LocalizacaoData(
                         isSuccess = true,
                         cidade = areaLocal.getOrNull(0),
                         bairro = areaLocal.getOrNull(1)
-                    )
-                    localizacaoSucess
+                    );
                 }
             } catch (e: Exception) {
-                LogsDebug.log("Erro: ${e.message}")
-                throw Exception("Houve um erro no GPS")
+                LocalizacaoData(isSuccess = false, error = "Houve um erro no GPS: ${e.message}")
             }
         }
 

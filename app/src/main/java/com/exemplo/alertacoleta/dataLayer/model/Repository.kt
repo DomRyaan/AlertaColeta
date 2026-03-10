@@ -23,15 +23,13 @@ class Repository(
     internal var dataStoreManager: AppDataStoreManager
 ) : Observer<LocalizacaoData> {
     private val retrofit = RetrofitClient.apiService
-
-    // Escopo de aplicação que viverá enquanto o app estiver rodando
-    val repositoryScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val repositoryScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     fun processSucess(resultado: ColetaJSONAPI?): String {
         if (resultado.toString().isNullOrBlank()) {
             return "Respota vazia do servidor"
         }
-
+        LogsDebug.log("Processando a requeste: ${resultado?.dias}")
         resultado?.let {
             repositoryScope.launch {
                 saveColeta(it.dias, it.horario)
@@ -48,29 +46,31 @@ class Repository(
         )
     }
 
-    fun salvarLocalizacao(cidade: String, bairro: String) {
-        repositoryScope.launch {
+    suspend fun salvarLocalizacao(cidade: String, bairro: String) {
             if (cidade.isNotEmpty() && bairro.isNotEmpty()) {
+                LogsDebug.log("Salvados os Dados: $cidade e $bairro")
                 dataStoreManager.salvarDadosLocalizacao(cidade, bairro)
-            }
         }
     }
 
     override fun onChanged(value: LocalizacaoData) {
         LogsDebug.log("Mudança no Data")
-
         if (value.isSuccess) {
-            LogsDebug.log("Respondeu com sucesso")
             val cidadeNaoNula = value.cidade
             val bairroNaoNula = value.bairro
 
+
+            LogsDebug.log("Respondeu com sucesso: $cidadeNaoNula e $bairroNaoNula")
+
             if (!cidadeNaoNula.isNullOrEmpty() && !bairroNaoNula.isNullOrEmpty()){
-                salvarLocalizacao(cidadeNaoNula, bairroNaoNula)
                 repositoryScope.launch {
                     try {
+                        salvarLocalizacao(cidadeNaoNula, bairroNaoNula)
+
+                        LogsDebug.log("Fazendo o resquest")
                         requestColeta(cidadeNaoNula, bairroNaoNula)
                     } catch (e: Exception) {
-                        LogsDebug.log("Não foi possivel fazer o requeste")
+                        LogsDebug.log("Não foi possivel fazer o requeste ${e.message}")
                 }
                 }
             } else {
@@ -84,6 +84,7 @@ class Repository(
         bairro: String
     ): String {
         return try {
+            LogsDebug.log("Fazendo o Resquete")
                 val response = retrofit.getColeta(cidade, bairro)
 
                 when (response.code()) {

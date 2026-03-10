@@ -20,12 +20,14 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 class AppDataStoreManager(private val context: Context) {
     // ---- FUNÇÕES DE ESCRITA (para salvar os dados) ----
     suspend fun salvarDadosLocalizacao(cidade: String, bairro: String){
+        LogsDebug.log("Salvando os dados: ${cidade}, ${bairro}")
         if (cidade.isNotEmpty() && bairro.isNotEmpty()) {
-            LogsDebug.log("Salvando os dados: ${cidade}, ${bairro}")
             context.dataStore.edit { preferences ->
                 preferences[CIDADE_KEY] = cidade
                 preferences[BAIRRO_KEY] = bairro
             }
+        } else {
+            LogsDebug.log("os dados: ${cidade}, ${bairro}. Estão vazio")
         }
     }
 
