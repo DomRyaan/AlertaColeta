@@ -70,7 +70,9 @@ class NotificationWorker(
 
     fun dispararNotificacao(hoje: String, diasDeColeta: List<String>) {
         if (diasDeColeta.contains(hoje)) {
-            NotificationBuilder.makeInfoNoti(appContext, "Coleta de Lixo", "Haverá coleta hoje! Lembre-se de por o lixo para fora").show()
+            val chanelNoti = NotificationHelper(appContext)
+            val notificationHelper = chanelNoti.NotificationBuilder("Coleta de Lixo", "Haverá coleta hoje! Lembre-se de por o lixo para fora")
+            notificationHelper.show()
         }
     }
 

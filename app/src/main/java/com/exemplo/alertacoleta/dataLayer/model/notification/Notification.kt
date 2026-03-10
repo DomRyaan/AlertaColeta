@@ -11,18 +11,17 @@ import androidx.core.app.NotificationManagerCompat
 import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.global.LogsDebug
 
-const val CHANNEL_ID = "alerta_coleta_channel"
-const val NOTIFICATION_ID = 123
-
-
-object NotificationHelper {
-
+class NotificationHelper(private val context: Context) {
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 101
+
+    val CHANNEL_ID = "alerta_coleta_channel"
+    val NOTIFICATION_ID = 123
+
     /**
      * Cria o canal de notificação
      * @param context O contexto necessário para acessar os serviços do sistema
      */
-    fun createCanalNotification(context: Context) {
+    fun createCanalNotification(){
         // Só é necessário para Android Oreo (API 26) e superior
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.name_chanel)
@@ -38,40 +37,28 @@ object NotificationHelper {
             notificationManager.createNotificationChannel(channel)
         }
     }
-}
 
+    /**
+     * Classe que gerencia a construção e exibição da notificação.
+     */
+    inner class NotificationBuilder(
+        private val titulo: String,
+        private val conteudo: String
+    ) {
+        private val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentTitle(this.titulo)
+            .setSmallIcon(R.drawable.trash_can_illustration_with_recycle_mark_svgrepo_com)
+            .setContentText(this.conteudo)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .build()
 
-/**
- * Classe que gerencia a construção e exibição da notificação.
- */
-class NotificationBuilder(
-    private val context: Context,
-    private val titulo: String,
-    private val conteudo: String
-    ){
-    private val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-        .setContentTitle(this.titulo)
-        .setSmallIcon(R.drawable.trash_can_illustration_with_recycle_mark_svgrepo_com)
-        .setContentText(this.conteudo)
-        .setPriority(NotificationCompat.PRIORITY_HIGH)
-        .setAutoCancel(true)
-        .setCategory(NotificationCompat.CATEGORY_ALARM)
-        .build()
-
-    @SuppressLint("MissingPermission")
-    fun show(id: Int = NOTIFICATION_ID){
-        with(NotificationManagerCompat.from(context)) {
-            notify(id, builder)
+        @SuppressLint("MissingPermission")
+        fun show(id: Int = NOTIFICATION_ID){
+            with(NotificationManagerCompat.from(context)) {
+                notify(id, builder)
+            }
         }
     }
-
-    companion object {
-        fun makeInfoNoti(context: Context,
-                         titulo: String,
-                         conteudo: String
-        ): NotificationBuilder {
-            return NotificationBuilder(context, titulo, conteudo)
-        }
-    }
-
 }

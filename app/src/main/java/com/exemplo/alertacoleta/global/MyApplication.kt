@@ -31,7 +31,9 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        NotificationHelper.createCanalNotification(applicationContext)
+        val channel = NotificationHelper(applicationContext)
+        channel.createCanalNotification()
+
         horario.observeForever { horarioSalvo ->
             if (!horarioSalvo.isNullOrBlank()) {
                 agendarNotificacaoDiaria(horarioSalvo)
