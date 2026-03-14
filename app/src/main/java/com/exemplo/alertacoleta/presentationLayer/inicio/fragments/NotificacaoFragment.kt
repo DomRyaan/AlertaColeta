@@ -6,27 +6,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationBuilder
+import com.exemplo.alertacoleta.dataLayer.model.Repository
 import com.exemplo.alertacoleta.dataLayer.model.notification.NotificationHelper
 import com.exemplo.alertacoleta.databinding.FragmentNotificationBinding
-import com.exemplo.alertacoleta.presentationLayer.inicio.FragmentSlideAdapters
-import com.exemplo.alertacoleta.presentationLayer.inicio.InitAcitvity
+import com.exemplo.alertacoleta.global.MyApplication
 
 class NotificacaoFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var btnEnableNotification: Button
-
     private val requestPermissaoLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGrated: Boolean ->
         if (isGrated){
-            NotificationBuilder.makeInfoNoti(requireContext(), "Teste", "Testando as notificações. Ignore essa notificação").show()
+            dispararNotificacaoTeste()
         }
     }
 
@@ -51,11 +47,16 @@ class NotificacaoFragment : Fragment() {
         binding.btnEnableNotification.setOnClickListener {
 
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                NotificationBuilder.makeInfoNoti(requireContext(), "Teste", "Testando as notificações. Ignore essa notificação").show()
+                dispararNotificacaoTeste()
             }else {
                 requestPermissaoLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+    }
+
+    fun dispararNotificacaoTeste(){
+        val notification = NotificationHelper.NotificationBuilder("Teste", "Testando as notificações. Ignore essa notificação", requireContext())
+        notification.show()
     }
 
     override fun onDestroyView() {

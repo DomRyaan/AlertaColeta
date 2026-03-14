@@ -25,7 +25,6 @@ import com.exemplo.alertacoleta.databinding.ActivityMainBinding
 import com.exemplo.alertacoleta.presentationLayer.home.recycleColeta.ColetaAdpter
 import com.exemplo.alertacoleta.presentationLayer.home.viewmodel.MainViewModel
 import com.exemplo.alertacoleta.presentationLayer.home.viewmodel.MainViewModelFactory
-import com.exemplo.alertacoleta.presentationLayer.loading.LoadingActivity
 
 class MainActivity : AppCompatActivity() {
     private val repository: Repository by lazy {

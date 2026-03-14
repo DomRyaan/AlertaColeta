@@ -27,8 +27,19 @@ class NotificationWorker(
 
     override suspend fun doWork(): Result {
         try {
-            val diasDeColetaString = getDiasColetas()
-            val horarioString = getHorario()
+            val diasDeColetaString = withTimeoutOrNull(900) {
+                dataStoreManager.diasColetaFlow
+                    .filterNotNull()
+                    .filter { it.isNotBlank() }
+                    .first()
+            }
+
+            val horarioString = withTimeoutOrNull(900) {
+                dataStoreManager.horarioColetaFlow
+                    .filterNotNull()
+                    .filter { it.isNotBlank() }
+                    .first()
+            }
 
 
             if (diasDeColetaString.isNullOrBlank() || horarioString.isNullOrBlank()){
@@ -37,15 +48,15 @@ class NotificationWorker(
 
             val diasDeColeta = formatarLista(diasDeColetaString)
 
-            val hoje = TempoFormatter().obterDiaDaSemanaFormatado().uppercase()
-
             if (DataFormatter.temColetaHoje(diasDeColeta)) {
-                dispararNotificacao(hoje, diasDeColeta)
+                val titulo = "Coleta de Lixo"
+                val descricao = "Haverá coleta hoje! Lembre-se de por o lixo para fora"
+                dispararNotificacao(titulo, descricao)
 
                 val hora = DataFormatter.getHora(horarioString)
                 val minuto = DataFormatter.getMin(horarioString)
 
-                val atrasoParaAmanha =  calcularAtrasoParaProximoAlvo(hora, minuto)
+                val atrasoParaAmanha = calcularAtrasoParaProximoAlvo(hora, minuto)
 
                 val proximaTarefa = OneTimeWorkRequestBuilder<NotificationWorker>()
                     .setInitialDelay(atrasoParaAmanha, java.util.concurrent.TimeUnit.MILLISECONDS)
@@ -55,9 +66,8 @@ class NotificationWorker(
                     "lembreteColetaDiaria",
                     ExistingWorkPolicy.REPLACE,
                     proximaTarefa
-                    )
-                }
-
+                )
+            }
             return Result.success()
         } catch (e: CancellationException) {
             LogsDebug.log("O worker foi cancelado pelo sistema.")
@@ -68,30 +78,9 @@ class NotificationWorker(
         }
     }
 
-    fun dispararNotificacao(hoje: String, diasDeColeta: List<String>) {
-        if (diasDeColeta.contains(hoje)) {
-            val chanelNoti = NotificationHelper(appContext)
-            val notificationHelper = chanelNoti.NotificationBuilder("Coleta de Lixo", "Haverá coleta hoje! Lembre-se de por o lixo para fora")
+    fun dispararNotificacao(titulo: String, descricao: String) {
+            val notificationHelper = NotificationHelper.NotificationBuilder(titulo, descricao, appContext)
             notificationHelper.show()
-        }
-    }
-
-    private suspend fun getDiasColetas(): String? {
-        return withTimeoutOrNull(900) {
-            dataStoreManager.diasColetaFlow
-                .filterNotNull()
-                .filter { it.isNotBlank() }
-                .first()
-        }
-    }
-
-    private suspend fun getHorario(): String? {
-        return withTimeoutOrNull(900) {
-            dataStoreManager.horarioColetaFlow
-                .filterNotNull()
-                .filter { it.isNotBlank() }
-                .first()
-        }
     }
 
     fun formatarLista(diasDeColetaString: String): List<String>{

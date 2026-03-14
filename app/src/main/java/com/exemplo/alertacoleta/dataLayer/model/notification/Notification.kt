@@ -12,10 +12,12 @@ import com.exemplo.alertacoleta.R
 import com.exemplo.alertacoleta.global.LogsDebug
 
 class NotificationHelper(private val context: Context) {
-    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 101
+    companion object{
+        private val NOTIFICATION_PERMISSION_REQUEST_CODE = 101
 
-    val CHANNEL_ID = "alerta_coleta_channel"
-    val NOTIFICATION_ID = 123
+        val CHANNEL_ID = "alerta_coleta_channel"
+        val NOTIFICATION_ID = 123
+    }
 
     /**
      * Cria o canal de notificação
@@ -41,9 +43,10 @@ class NotificationHelper(private val context: Context) {
     /**
      * Classe que gerencia a construção e exibição da notificação.
      */
-    inner class NotificationBuilder(
+    class NotificationBuilder(
         private val titulo: String,
-        private val conteudo: String
+        private val conteudo: String,
+        private val context: Context
     ) {
         private val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(this.titulo)

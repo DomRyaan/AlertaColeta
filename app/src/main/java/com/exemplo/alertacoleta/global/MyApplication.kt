@@ -31,6 +31,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         val channel = NotificationHelper(applicationContext)
         channel.createCanalNotification()
 
@@ -60,7 +61,7 @@ class MyApplication : Application() {
         val constraints = constaintBuilder.build()
 
 
-        val atrasoInicial: Long = (horarioAlvo.timeInMillis - 10000L) - agora.timeInMillis
+        val atrasoInicial: Long = horarioAlvo.timeInMillis - agora.timeInMillis
 
         val workRequest = setPeriodicWorkRequest(atrasoInicial, constraints)
 
@@ -82,7 +83,7 @@ class MyApplication : Application() {
     fun makeCalendarInstance(hora: Int, minuto: Int): Calendar {
         return Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hora)
-            set(Calendar.MINUTE, (minuto - 30))
+            set(Calendar.MINUTE, minuto)
             set(Calendar.SECOND, 0)
         }
     }
@@ -90,7 +91,7 @@ class MyApplication : Application() {
     fun setPeriodicWorkRequest(atrasoInicial: Long, constraints: Constraints): PeriodicWorkRequest {
         return PeriodicWorkRequest.Builder(
             NotificationWorker::class.java,
-            20,
+            24L,
             TimeUnit.HOURS
             )
             .setInitialDelay(atrasoInicial, TimeUnit.MILLISECONDS)
